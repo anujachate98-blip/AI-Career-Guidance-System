@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerCompass | Career Guidance</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/">Career<span>Compass</span></a><span class="tag">Discover your direction</span></header>
+<main class="container">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">YOUR FUTURE STARTS HERE</p>
+      <h1>Find a career that<br><span>fits you.</span></h1>
+      <p class="intro">Tell us what you enjoy and what you can do. Get career ideas and a beginner-friendly learning roadmap.</p>
+      <div class="mini-points"><span>✓ Simple assessment</span><span>✓ Top 3 career ideas</span><span>✓ Learning roadmap</span></div>
+    </div>
+    <div class="hero-art"><div class="orbit">✦</div><div class="card-art"><div class="art-icon">🧭</div><b>Your next step</b><p>Explore. Learn. Grow.</p><div class="art-bars"><i></i><i></i><i></i></div></div></div>
+  </section>
 
+  <section class="form-card">
+    <div class="section-heading"><div><p class="eyebrow">CAREER ASSESSMENT</p><h2>Let's get to know you</h2></div><span class="step">01 / 01</span></div>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form action="/recommend" method="POST">
+      <div class="field-grid">
+        <label>Your name<input type="text" name="name" placeholder="Enter your name" value="{{ name or '' }}"></label>
+        <label>Current education
+          <select name="education">
+            <option value="">Select education</option>
+            {% for item in ["12th / HSC","Diploma","B.E. / B.Tech","B.Sc. / BCA","M.E. / M.Tech","Other"] %}
+            <option value="{{ item }}" {% if education == item %}selected{% endif %}>{{ item }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="choice-section">
+        <h3>What are you interested in?</h3><p>Select all that apply.</p>
+        <div class="choices">
+          {% for value in ["coding","problem solving","technology","data","maths","analysis","design","websites","creativity","security","networking","AI","machine learning","helping people","troubleshooting"] %}
+          <label class="choice"><input type="checkbox" name="interests" value="{{ value }}"><span>{{ value|title }}</span></label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="choice-section">
+        <h3>Which skills do you already have?</h3><p>It's okay if you are a beginner. Select any you know.</p>
+        <div class="choices">
+          {% for value in ["Python","Java","C","C++","JavaScript","HTML","CSS","Excel","SQL","Power BI","Statistics","Figma","Design","Communication","Networking","Linux","Windows","Troubleshooting","Machine Learning"] %}
+          <label class="choice"><input type="checkbox" name="skills" value="{{ value }}"><span>{{ value }}</span></label>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="primary-btn" type="submit">Find my career matches <span>→</span></button>
+    </form>
+  </section>
+  <p class="disclaimer">CareerCompass provides learning suggestions for educational purposes. Results are guidance, not a guarantee of career success.</p>
+</main>
+<footer>CareerCompass · Student Mini Project</footer>
+</body></html>
